@@ -7,5 +7,4 @@ import ToHeader from './components/ToHeader.vue';
 </template>
 
 <style scoped>
-
 </style>
