@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { ref } from 'vue';
+import { Ref, ref } from 'vue';
 
 export const useSessionStore = defineStore('SessionStore', () => {
   const isLoading = ref(true);
@@ -14,6 +14,7 @@ export const useSessionStore = defineStore('SessionStore', () => {
   const secondsCounter = ref(0);
   const totalClickCounter = ref(0);
   const correctClickCounter = ref(0);
+  const wrongClick = ref(false);
 
   const startTry = () => {
     isTryActive.value = true;
@@ -27,12 +28,16 @@ export const useSessionStore = defineStore('SessionStore', () => {
     }, 1000)
   };
 
+  const increaseCounter = (counter: Ref) => {
+    counter.value += 1;
+  };
+
   const increaseTotalClickCounter = () => {
-    totalClickCounter.value += 1;
+    increaseCounter(totalClickCounter);
   };
 
   const increaseCorrectClickCounter = () => {
-    correctClickCounter.value += 1;
+    increaseCounter(correctClickCounter);
   };
 
   return {
@@ -40,6 +45,7 @@ export const useSessionStore = defineStore('SessionStore', () => {
     lettersArray,
     totalClickCounter,
     correctClickCounter,
+    wrongClick,
     convertTextToArray,
     startTry,
     stopTry,

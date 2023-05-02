@@ -10,9 +10,7 @@ const requestError = ref<Error | null>(null);
 
 onMounted(async () => {
   try {
-    const text = await getText();
-    console.log(text);
-    
+    const text = await getText();    
     store.convertTextToArray(text.text);
     store.isLoading = false;
   } catch (error) {
