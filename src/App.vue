@@ -1,14 +1,11 @@
 <script setup lang="ts">
-import ToButton from './components/UI/ToButton.vue';
+import ToHeader from './components/ToHeader.vue';
 </script>
 
 <template>
-  <to-button>Заново</to-button>
+  <to-header></to-header>
 </template>
 
 <style scoped>
-.hello-world {
-  @apply text-blue-600 text-5xl;
-}
 
 </style>
