@@ -22,6 +22,6 @@ import ToButton from './UI/ToButton.vue';
 }
 
 .train-screen__indicators {
-  @apply flex flex-col gap-4 items-end;
+  @apply flex flex-col gap-4 w-48 items-end;
 }
 </style>

@@ -16,7 +16,7 @@ const props = defineProps<Props>();
 
 <style scoped>
 .indicator {
-  @apply flex flex-col gap-4 justify-center w-48 h-28 p-4 border border-solid border-blue-500 rounded-2xl;
+  @apply flex flex-col gap-4 justify-center w-full h-28 p-4 border border-solid border-blue-500 rounded-2xl;
 }
 
 .indicator__name {
