@@ -1,16 +1,35 @@
 <script setup lang="ts">
+import { computed } from 'vue';
+import { useSessionStore } from '../stores/SessionStore';
+
 interface Props {
   indicatorName: string;
 }
 
 const props = defineProps<Props>();
+const store = useSessionStore();
+
+const unitOfMeasure = computed(() => props.indicatorName === 'Скорость' ? 'зн./мин' : '%');
+
+const indicatorsCalculation = computed(() => {
+  let result;
+  if(props.indicatorName === 'Точность') {
+    store.totalClickCounter > 0 
+    ? result = Math.round((store.correctClickCounter / store.totalClickCounter) * 100 )
+    : result = 0;
+  };
+  return result;
+})
 
 </script>
 
 <template>
   <div class="indicator">
     <h3 class="indicator__name">{{ props.indicatorName }}</h3>
-    <p class="indicator__value"><strong>0</strong> зн./мин</p>
+    <p class="indicator__value">
+      <strong>{{ indicatorsCalculation }}</strong>
+      {{ unitOfMeasure }}
+    </p>
   </div>
 </template>
 

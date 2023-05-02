@@ -10,7 +10,7 @@ import ToButton from './UI/ToButton.vue';
     <text-field />
     <div class="train-screen__indicators">
       <statistics-indicator  indicatorName="Скорость" />
-      <statistics-indicator  indicatorName="Скорость" />
+      <statistics-indicator  indicatorName="Точность" />
       <to-button class="indicators__button">Заново</to-button>
     </div>
   </div>
