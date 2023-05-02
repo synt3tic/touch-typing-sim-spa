@@ -1,22 +1,23 @@
 <script setup lang="ts">
+import { onMounted, ref } from 'vue';
 import { getText } from './API/textAPI';
 import ToHeader from './components/ToHeader.vue';
 import TrainScreen from './components/TrainScreen.vue';
 import { useSessionStore } from './stores/SessionStore';
 
 const store = useSessionStore();
+const requestError = ref<Error | null>(null);
 
 
-try {
-  const res = await getText();
-  console.log(res);
-} catch (error) {
-  console.log(error.message as Error);
-  
-}
-
-
-
+onMounted(async () => {
+  try {
+    const text = await getText();
+    store.text = text;
+    store.isLoading = false;
+  } catch (error) {
+    requestError.value = error as Error;
+  }
+});
 </script>
 
 <template>
