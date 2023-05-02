@@ -8,11 +8,12 @@ import { useSessionStore } from './stores/SessionStore';
 const store = useSessionStore();
 const requestError = ref<Error | null>(null);
 
-
 onMounted(async () => {
   try {
     const text = await getText();
-    store.text = text;
+    console.log(text);
+    
+    store.convertTextToArray(text.text);
     store.isLoading = false;
   } catch (error) {
     requestError.value = error as Error;

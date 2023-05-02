@@ -3,7 +3,11 @@ import { ref } from 'vue';
 
 export const useSessionStore = defineStore('SessionStore', () => {
   const isLoading = ref(true);
-  const text = ref<string | null>(null);
+
+  const lettersArray = ref<string[]>([]);
+  const convertTextToArray = (text: string) => {
+    lettersArray.value = text.split('');
+  };
 
   const isTryActive = ref(false);
 
@@ -33,9 +37,10 @@ export const useSessionStore = defineStore('SessionStore', () => {
 
   return {
     isLoading,
-    text,
+    lettersArray,
     totalClickCounter,
     correctClickCounter,
+    convertTextToArray,
     startTry,
     stopTry,
     timer,
