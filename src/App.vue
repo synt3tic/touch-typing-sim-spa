@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import ToButton from './components/UI/ToButton.vue';
 </script>
 
 <template>
-  <div class="hello-world">Hello World</div>
+  <to-button>Заново</to-button>
 </template>
 
 <style scoped>
