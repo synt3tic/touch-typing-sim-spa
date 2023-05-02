@@ -17,6 +17,10 @@ const indicatorsCalculation = computed(() => {
     store.totalClickCounter > 0 
     ? result = Math.round((store.correctClickCounter / store.totalClickCounter) * 100 )
     : result = 0;
+  } else {
+    store.totalClickCounter > 0
+    ? result = Math.round((store.correctClickCounter / store.secondsCounter) * 60)
+    : result = 0;
   };
   return result;
 })

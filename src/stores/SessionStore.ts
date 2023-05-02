@@ -16,16 +16,18 @@ export const useSessionStore = defineStore('SessionStore', () => {
   const correctClickCounter = ref(0);
   const wrongClick = ref(false);
 
+
+  let interval: number | undefined;
+
   const startTry = () => {
     isTryActive.value = true;
+    interval = setInterval(() => {
+      secondsCounter.value += 1;
+    }, 1000)
   };
   const stopTry = () => {
     isTryActive.value = false;
-  };
-  const timer = () => {
-    setInterval(() => {
-      if (isTryActive) secondsCounter.value += 1
-    }, 1000)
+    clearInterval(interval);
   };
 
   const increaseCounter = (counter: Ref) => {
@@ -42,14 +44,15 @@ export const useSessionStore = defineStore('SessionStore', () => {
 
   return {
     isLoading,
+    isTryActive,
     lettersArray,
     totalClickCounter,
     correctClickCounter,
     wrongClick,
+    secondsCounter,
     convertTextToArray,
     startTry,
     stopTry,
-    timer,
     increaseTotalClickCounter,
     increaseCorrectClickCounter,
   };
