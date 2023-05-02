@@ -8,7 +8,14 @@ export default {
     fontFamily: {
       sans: ['Raleway', 'sans-serif'],
     },
-    extend: {},
+    extend: {
+      height: {
+        '116': '29rem',
+      },
+      width: {
+        '224': '56rem',
+      },
+    },
   },
   plugins: [],
 }
