@@ -9,18 +9,19 @@ interface Props {
 const props = defineProps<Props>();
 const store = useSessionStore();
 
-const unitOfMeasure = computed(() => props.indicatorName === 'Скорость' ? 'зн./мин' : '%');
+const unitOfMeasure = () => props.indicatorName === 'Скорость' ? 'зн./мин' : '%';
+
+const calculationValue = (value: number, multiplier: number) => {
+  return Math.round((store.correctClickCounter / value) * multiplier);
+};
 
 const indicatorsCalculation = computed(() => {
+  const isCorrect = store.totalClickCounter > 0;
   let result;
   if(props.indicatorName === 'Точность') {
-    store.totalClickCounter > 0 
-    ? result = Math.round((store.correctClickCounter / store.totalClickCounter) * 100 )
-    : result = 0;
+    isCorrect ? result = calculationValue(store.totalClickCounter, 100) : result = 0;
   } else {
-    store.totalClickCounter > 0
-    ? result = Math.round((store.correctClickCounter / store.secondsCounter) * 60)
-    : result = 0;
+    isCorrect ? result = calculationValue(store.secondsCounter, 60) : result = 0;
   };
   return result;
 })
@@ -32,7 +33,7 @@ const indicatorsCalculation = computed(() => {
     <h3 class="indicator__name">{{ props.indicatorName }}</h3>
     <p class="indicator__value">
       <strong>{{ indicatorsCalculation }}</strong>
-      {{ unitOfMeasure }}
+      {{ unitOfMeasure() }}
     </p>
   </div>
 </template>

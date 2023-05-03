@@ -30,17 +30,17 @@ const radioButtons = [
   {
     id: 1,
     name: 'Малый',
-    value: '&number=4',
+    value: '&number=2',
   },
   {
     id: 2,
     name: 'Средний',
-    value: '&number=7',
+    value: '&number=4',
   },
   {
     id: 3,
     name: 'Большой',
-    value: '&number=10',
+    value: '&number=7',
   },
 ];
 
