@@ -17,7 +17,7 @@
 }
 
 .to-modal__window {
-  @apply flex flex-col gap-8 w-96 p-4 text-center bg-white rounded-2xl;
+  @apply flex flex-col gap-4 w-96 p-4 text-center bg-white rounded-2xl;
 }
 
 .to-modal__window h2 {

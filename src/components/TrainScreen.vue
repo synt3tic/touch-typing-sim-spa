@@ -1,14 +1,23 @@
 <script setup lang="ts">
+import StartWindow from '../components/StartWindow.vue';
+import ResultScreen from '../components/ResultScreen.vue';
 import TextField from './TextField.vue';
 import StatisticsIndicator from './StatisticsIndicator.vue';
 import ToButton from './UI/ToButton.vue';
 import { useSessionStore } from '../stores/SessionStore';
+import { onUnmounted } from 'vue';
 
 const store = useSessionStore();
+
+onUnmounted(() => {
+  store.resetValues();
+});
 
 </script>
 
 <template>
+  <start-window v-if="!store.isTryActive" />
+  <result-screen v-if="store.isResultScreenVisible" />
   <div class="train-screen">
     <text-field />
     <div class="train-screen__indicators">
