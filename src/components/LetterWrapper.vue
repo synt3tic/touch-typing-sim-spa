@@ -28,7 +28,7 @@ const classList = computed(() => {
 
 <style scoped>
 .letter-wrapper {
-  @apply h-8 text-center tracking-widest rounded select-none bg-white;
+  @apply tracking-widest rounded bg-white;
 }
 
 .letter-wrapper_wrong {

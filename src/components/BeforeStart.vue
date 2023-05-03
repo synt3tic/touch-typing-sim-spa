@@ -22,7 +22,7 @@ const startTyping = async () => {
 </script>
 
 <template>
-  <to-modal v-if="!store.isTryActive">
+  <to-modal>
     <template #header>Приготовьтесь к печати</template>
     <img class="icon" src="../assets/icons/keyboard.svg" alt="keyboard-icon">
     <to-button @click="startTyping">Начать печатать</to-button>

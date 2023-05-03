@@ -26,6 +26,7 @@ export const useSessionStore = defineStore('SessionStore', () => {
     totalClickCounter.value = 0;
     correctClickCounter.value = 0;
     wrongClick.value = false;
+    isResultScreenVisible.value = false;
     clearInterval(interval);
   };
 
@@ -66,6 +67,7 @@ export const useSessionStore = defineStore('SessionStore', () => {
     wrongClick,
     secondsCounter,
     convertTextToArray,
+    resetValues,
     startTry,
     stopTry,
     restartTry,
