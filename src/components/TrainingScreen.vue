@@ -22,9 +22,9 @@ const correctClickCounter = ref(0);
 let interval: number | undefined;
 
 const startTry = async (textLenth: string) => {
-  const text: ApiResponse = await getText(textLenth);
+  const respone: ApiResponse = await getText(textLenth);
   isLoading.value = false;
-  lettersArray.value = text.text.split('');
+  lettersArray.value = respone.text.split('');
   isTryActive.value = true;
   interval = setInterval(() => {
     secondsCounter.value += 1;
