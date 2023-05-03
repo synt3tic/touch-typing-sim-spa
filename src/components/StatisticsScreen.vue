@@ -52,19 +52,22 @@ const accuracyResultMessage = computed(() => {
 <template>
   <div class="statistic-screen">
     <h1>Статистика ваших попыток</h1>
-    <ul class="statistic-screen__records">
+    <ul v-if="store.statisticInfo.length > 0" class="statistic-screen__records">
       <li v-for="record in store.statisticInfo" :key="record.id">
         <h2><strong>Попытка №{{ record.id }}</strong></h2>
         <p>Скорость набора текста: <strong>{{ record.speed }}</strong> зн./мин</p>
         <p>Точность набора текста: <strong>{{ record.accuracy }}</strong> %</p>
       </li>
     </ul>
+    <p v-else>Пока что вы не завершили ни одной попытки</p>
     <div class="statistic-screen__best-results">
       <div class="best-results__result-card">
+        <img src="../assets/icons/speed.svg" alt="speed-icon" />
         <h3>Скорость набора</h3>
         <p>{{ speedResultMessage }}</p>
       </div>
       <div class="best-results__result-card">
+        <img src="../assets/icons/accuracy.svg" alt="accuracy-icon" />
         <h3>Точность набора</h3>
         <p>{{ accuracyResultMessage }}</p>
       </div>
@@ -94,7 +97,7 @@ const accuracyResultMessage = computed(() => {
 }
 
 .best-results__result-card {
-  @apply flex flex-col gap-2 w-full p-2 rounded-2xl bg-blue-400;
+  @apply flex flex-col items-center gap-2 w-full p-2 rounded-2xl bg-blue-400;
 }
 
 .best-results__result-card h3 {
