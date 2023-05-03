@@ -14,7 +14,7 @@ const store = useSessionStore();
     <div class="train-screen__indicators">
       <statistics-indicator  indicatorName="Скорость" />
       <statistics-indicator  indicatorName="Точность" />
-      <to-button class="indicators__button" @click="store.stopTry">Заново</to-button>
+      <to-button class="indicators__button" @click="store.restartTry">Заново</to-button>
     </div>
   </div>
 </template>

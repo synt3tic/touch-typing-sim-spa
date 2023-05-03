@@ -10,6 +10,7 @@ export const useSessionStore = defineStore('SessionStore', () => {
   };
 
   const isTryActive = ref(false);
+  const isResultScreenVisible = ref(false);
 
   const secondsCounter = ref(0);
   const totalClickCounter = ref(0);
@@ -19,6 +20,20 @@ export const useSessionStore = defineStore('SessionStore', () => {
 
   let interval: number | undefined;
 
+  const resetValues = () => {
+    lettersArray.value = [];
+    isTryActive.value = false;
+    secondsCounter.value = 0;
+    totalClickCounter.value = 0;
+    correctClickCounter.value = 0;
+    wrongClick.value = false;
+    clearInterval(interval);
+  };
+
+  const restartTry = () => {
+    resetValues();
+  }
+
   const startTry = () => {
     isTryActive.value = true;
     interval = setInterval(() => {
@@ -26,8 +41,8 @@ export const useSessionStore = defineStore('SessionStore', () => {
     }, 1000)
   };
   const stopTry = () => {
-    isTryActive.value = false;
     clearInterval(interval);
+    isResultScreenVisible.value = true;
   };
 
   const increaseCounter = (counter: Ref) => {
@@ -40,11 +55,13 @@ export const useSessionStore = defineStore('SessionStore', () => {
 
   const increaseCorrectClickCounter = () => {
     increaseCounter(correctClickCounter);
+    console.log(interval)
   };
 
   return {
     isLoading,
     isTryActive,
+    isResultScreenVisible,
     lettersArray,
     totalClickCounter,
     correctClickCounter,
@@ -53,6 +70,7 @@ export const useSessionStore = defineStore('SessionStore', () => {
     convertTextToArray,
     startTry,
     stopTry,
+    restartTry,
     increaseTotalClickCounter,
     increaseCorrectClickCounter,
   };

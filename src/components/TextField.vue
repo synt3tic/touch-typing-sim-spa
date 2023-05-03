@@ -5,19 +5,27 @@ import LetterWrapper from './LetterWrapper.vue';
 
 const store = useSessionStore();
 
-const input = ref<HTMLInputElement | null>(null);
+const input = ref<HTMLInputElement>();
 const inputValue = ref('');
 
 watchEffect(() => {
-  if (inputValue.value === store.lettersArray[store.correctClickCounter]) {
-    store.increaseCorrectClickCounter();
-    store.increaseTotalClickCounter();
+  if (!store.isTryActive) {
     inputValue.value = '';
-  } else if (inputValue.value !== '') {
-    store.increaseTotalClickCounter();
-    store.wrongClick = true;
-  } else {
-    store.wrongClick = false;
+  }
+  if (store.isTryActive) {
+    if (inputValue.value === store.lettersArray[store.correctClickCounter]) {
+      store.increaseCorrectClickCounter();
+      store.increaseTotalClickCounter();
+      inputValue.value = '';
+      if (store.correctClickCounter === store.lettersArray.length) {
+        store.stopTry();
+      }
+    } else if (inputValue.value !== '') {
+      store.increaseTotalClickCounter();
+      store.wrongClick = true;
+    } else {
+      store.wrongClick = false;
+    }
   }
 })
 
@@ -31,7 +39,7 @@ onMounted(() => {
     <input 
       v-model="inputValue" 
       type="text" 
-      ref="input" 
+      ref="input"
       maxlength="1"
       class="w-0 h-0"
       @blur="input?.focus()"
@@ -49,6 +57,6 @@ onMounted(() => {
 
 <style scoped>
 .text-field {
-  @apply flex flex-wrap w-224 p-3 whitespace-pre-wrap text-lg font-medium bg-white rounded-2xl;
+  @apply w-224 p-3 whitespace-pre-wrap text-lg font-medium bg-white rounded-2xl;
 }
 </style>

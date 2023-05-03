@@ -21,6 +21,6 @@
 }
 
 .to-modal__window h2 {
-  @apply text-2xl;
+  @apply text-2xl font-semibold;
 }
 </style>
