@@ -1,52 +1,39 @@
 <script setup lang="ts">
-import { computed } from 'vue';
 import { useStatisticStore } from '../stores/StatisticStore';
 
 const store = useStatisticStore();
 
-const bestAccuracy = computed(() => {
+const bestScore = (value: string) => {
   let result: number = 0;
   store.statisticInfo.forEach(el => {
-    if (result < el.accuracy) result = el.accuracy;
+    if (result < el[value]) result = el[value];
   });
   return result;
-})
+};
 
-const bestSpeed = computed(() => {
-  let result: number = 0;
-  store.statisticInfo.forEach(el => {
-    if (result < el.speed) result = el.speed;
-  });
-  return result;
-})
+const speedResultMessage = () => {
+  let result: string;
+  const bestSpeed = bestScore('speed');
 
-const speedResultMessage = computed(() => {
-  if (store.statisticInfo.length <= 1) {
-    return 'Завершите несколько попыток, чтобы увидеть свой прогресс в скорости набора текста';
-  }
-  const firstTrySpeed = store.statisticInfo[0].speed;
-  let result: string = `Ваш лучший результат: ${bestSpeed.value} зн./мин.`;
-  if (store.statisticInfo.length > 1 && bestSpeed.value > firstTrySpeed) {
-    result += ` Это на ${bestSpeed.value - firstTrySpeed} зн./мин. быстрее, в сравнении с первой попыткой`;
+  if (store.statisticInfo.length < 2) {
+    result = 'Завершите несколько попыток, чтобы увидеть свой прогресс в скорости набора текста';
   } else {
-    result = 'Потренеруйтесь ещё немного, чтобы скорость набора текста стала выше';
+    result = `Ваш лучший результат: ${bestSpeed} зн./мин.`;
   }
   return result;
-});
+};
 
-const accuracyResultMessage = computed(() => {
-  if (store.statisticInfo.length <= 1) {
-    return 'Завершите несколько попыток, чтобы увидеть свой прогресс в точности набора текста';
-  }
-  const firstTryAccuracy = store.statisticInfo[0].accuracy;
-  let result: string = `Ваш лучший результат: ${bestAccuracy.value} %.`;
-  if (store.statisticInfo.length > 1 && bestAccuracy.value > firstTryAccuracy) {
-    result += ` Это на ${bestAccuracy.value - firstTryAccuracy} % точнее, в сравнении с первой попыткой`;
+const accuracyResultMessage = () => {
+  let result: string;
+  const bestAccuracy = bestScore('accuracy');
+
+  if (store.statisticInfo.length < 2) {
+    result = 'Завершите несколько попыток, чтобы увидеть свой прогресс в точности набора текста';
   } else {
-    result = 'Потренеруйтесь ещё немного, чтобы улучшить точность набора';
-  }
+    result = `Ваш лучший результат: ${bestAccuracy} %.`;
+  }  
   return result;
-});
+};
 </script>
 
 <template>
@@ -64,12 +51,12 @@ const accuracyResultMessage = computed(() => {
       <div class="best-results__result-card">
         <img src="../assets/icons/speed.svg" alt="speed-icon" />
         <h3>Скорость набора</h3>
-        <p>{{ speedResultMessage }}</p>
+        <p>{{ speedResultMessage() }}</p>
       </div>
       <div class="best-results__result-card">
         <img src="../assets/icons/accuracy.svg" alt="accuracy-icon" />
         <h3>Точность набора</h3>
-        <p>{{ accuracyResultMessage }}</p>
+        <p>{{ accuracyResultMessage() }}</p>
       </div>
     </div>
   </div>

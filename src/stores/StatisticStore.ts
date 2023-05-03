@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
-import { TryRecord } from '../interfaces/StatisticInterfaces';
+import { TryRecord } from '../types/StatisticTypes';
 
 export const useStatisticStore = defineStore('StatisticStore', () => {
   const statisticInfo = ref<TryRecord[]>([]);

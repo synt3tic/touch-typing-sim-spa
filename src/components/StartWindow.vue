@@ -1,23 +1,13 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import { getText } from '../API/textAPI';
+import { ref, defineEmits } from 'vue';
 import ToModal from '../components/UI/ToModal.vue';
 import ToButton from '../components/UI/ToButton.vue';
 import ToRadioButton from './UI/ToRadioButton.vue';
-import { useSessionStore } from '../stores/SessionStore';
 
-const store = useSessionStore();
-
-const requestError = ref<Error | null>(null);
+const emit = defineEmits(['startTry']);
 
 const startTyping = async () => {
-  try {
-    const text = await getText(selectedTextLength.value);    
-    store.convertTextToArray(text.text);
-    store.startTry();
-  } catch (error) {
-    requestError.value = error as Error;
-  }
+  emit('startTry', selectedTextLength.value);
 };
 
 const selectedTextLength = ref('&number=7');
@@ -30,7 +20,7 @@ const radioButtons = [
   {
     id: 1,
     name: 'Малый',
-    value: '&number=2',
+    value: '&number=1',
   },
   {
     id: 2,

@@ -1,26 +1,31 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { useSessionStore } from '../stores/SessionStore';
 import ToModal from './UI/ToModal.vue';
 import ToButton from './UI/ToButton.vue';
 import { useStatisticStore } from '../stores/StatisticStore';
 import { useRouter } from 'vue-router';
 
-const router = useRouter();
-const sessionStore = useSessionStore();
-const statisticStore = useStatisticStore();
+interface Props {
+  correctClicks: number;
+  totalClicks: number;
+  seconds: number;
+}
 
-const typingSpeed = computed(() => Math.round((sessionStore.correctClickCounter / sessionStore.secondsCounter) * 60));
-const typingAccuracy = computed(() => Math.round((sessionStore.correctClickCounter / sessionStore.totalClickCounter) * 100));
+const props = defineProps<Props>();
+const emit = defineEmits(['restartTry'])
+const router = useRouter();
+const store = useStatisticStore();
+
+const typingSpeed = computed(() => Math.round((props.correctClicks / props.seconds) * 60));
+const typingAccuracy = computed(() => Math.round((props.correctClicks / props.totalClicks) * 100));
 
 const saveResult = () => {
-  statisticStore.saveRecord(typingSpeed.value, typingAccuracy.value);
-  sessionStore.restartTry();
+  store.saveRecord(typingSpeed.value, typingAccuracy.value);
+  emit('restartTry');
 };
 
 const goToStatistic = () => {
-  statisticStore.saveRecord(typingSpeed.value, typingAccuracy.value);
-  sessionStore.resetValues();
+  store.saveRecord(typingSpeed.value, typingAccuracy.value);
   router.push({ name: 'statistic-screen' });
 };
 </script>

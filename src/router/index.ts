@@ -1,12 +1,12 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
-import TrainScreen from '../components/TrainScreen.vue';
+import TrainingScreen from '../components/TrainingScreen.vue';
 import StatisticsScreen from '../components/StatisticsScreen.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'train-screen',
-    component: TrainScreen,
+    component: TrainingScreen,
   },
   {
     path: '/statistic',

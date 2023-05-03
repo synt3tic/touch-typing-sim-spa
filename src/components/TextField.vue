@@ -1,30 +1,35 @@
 <script setup lang="ts">
 import { onMounted, ref, watchEffect } from 'vue';
-import { useSessionStore } from '../stores/SessionStore';
 import LetterWrapper from './LetterWrapper.vue';
 
-const store = useSessionStore();
+interface Props {
+  isTryActive: boolean;
+  lettersArray: string[];
+  correctClicks: number;
+}
+
+const props = defineProps<Props>();
+const emit = defineEmits(['correctClick', 'wrongClick', 'stopTry']);
 
 const input = ref<HTMLInputElement>();
 const inputValue = ref('');
+const wrongClick = ref(false);
 
 watchEffect(() => {
-  if (!store.isTryActive) {
+  if (props.correctClicks === props.lettersArray.length && props.lettersArray.length !== 0) {
+      emit('stopTry');
+    }
+  if (!props.isTryActive) {
     inputValue.value = '';
-  }
-  if (store.isTryActive) {
-    if (inputValue.value === store.lettersArray[store.correctClickCounter]) {
-      store.increaseCorrectClickCounter();
-      store.increaseTotalClickCounter();
+  } else {
+    if (inputValue.value === props.lettersArray[props.correctClicks]) {
+      emit('correctClick');
       inputValue.value = '';
-      if (store.correctClickCounter === store.lettersArray.length) {
-        store.stopTry();
-      }
     } else if (inputValue.value !== '') {
-      store.increaseTotalClickCounter();
-      store.wrongClick = true;
+      emit('wrongClick');
+      wrongClick.value = true;
     } else {
-      store.wrongClick = false;
+      wrongClick.value = false;
     }
   }
 })
@@ -45,12 +50,12 @@ onMounted(() => {
       @blur="input?.focus()"
     />
     <letter-wrapper
-      v-for="(letter, index) in store.lettersArray"
+      v-for="(letter, index) in props.lettersArray"
       :key="index"
       :letter="letter"
       :index="index"
-      :correct-clicks="store.correctClickCounter"
-      :wrong-click="store.wrongClick"
+      :correct-clicks="props.correctClicks"
+      :wrong-click="wrongClick"
     />
   </div>
 </template>
