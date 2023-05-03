@@ -2,7 +2,6 @@ import { defineStore } from 'pinia';
 import { Ref, ref } from 'vue';
 
 export const useSessionStore = defineStore('SessionStore', () => {
-  const isLoading = ref(true);
 
   const lettersArray = ref<string[]>([]);
   const convertTextToArray = (text: string) => {
@@ -59,7 +58,6 @@ export const useSessionStore = defineStore('SessionStore', () => {
   };
 
   return {
-    isLoading,
     isTryActive,
     isResultScreenVisible,
     lettersArray,
