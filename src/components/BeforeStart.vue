@@ -13,7 +13,6 @@ const startTyping = async () => {
   try {
     const text = await getText();    
     store.convertTextToArray(text.text);
-    store.isLoading = false;
     store.startTry();
   } catch (error) {
     requestError.value = error as Error;

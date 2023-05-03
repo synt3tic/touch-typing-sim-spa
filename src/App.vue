@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import ToHeader from './components/ToHeader.vue';
-import TrainScreen from './components/TrainScreen.vue';
 import BeforeStart from './components/BeforeStart.vue';
 import ResultScreen from './components/ResultScreen.vue';
 
@@ -11,8 +10,7 @@ import ResultScreen from './components/ResultScreen.vue';
   <before-start />
   <result-screen />
   <main class="main">
-    <h1></h1>
-    <train-screen></train-screen>
+    <router-view />
   </main>
 </template>
 
