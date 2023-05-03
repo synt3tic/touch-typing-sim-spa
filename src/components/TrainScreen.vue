@@ -2,6 +2,9 @@
 import TextField from './TextField.vue';
 import StatisticsIndicator from './StatisticsIndicator.vue';
 import ToButton from './UI/ToButton.vue';
+import { useSessionStore } from '../stores/SessionStore';
+
+const store = useSessionStore();
 
 </script>
 
@@ -11,7 +14,7 @@ import ToButton from './UI/ToButton.vue';
     <div class="train-screen__indicators">
       <statistics-indicator  indicatorName="Скорость" />
       <statistics-indicator  indicatorName="Точность" />
-      <to-button class="indicators__button">Заново</to-button>
+      <to-button class="indicators__button" @click="store.restartTry">Заново</to-button>
     </div>
   </div>
 </template>

@@ -1,6 +1,6 @@
 import { makeRequest } from ".";
 
-const url = '	https://fish-text.ru/get?format=json&number=5';
+const url = '	https://fish-text.ru/get?format=json&number=1';
 
 const getText = async () => {
   const response = await makeRequest(url, 'GET');
