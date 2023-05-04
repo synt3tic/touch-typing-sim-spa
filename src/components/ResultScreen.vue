@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { computed } from 'vue';
 import ToModal from './UI/ToModal.vue';
 import ToButton from './UI/ToButton.vue';
 import { useStatisticStore } from '../stores/StatisticStore';
@@ -12,20 +11,20 @@ interface Props {
 }
 
 const props = defineProps<Props>();
-const emit = defineEmits(['restartTry'])
+const emit = defineEmits(['restartTry']);
 const router = useRouter();
 const store = useStatisticStore();
 
-const typingSpeed = computed(() => Math.round((props.correctClicks / props.seconds) * 60));
-const typingAccuracy = computed(() => Math.round((props.correctClicks / props.totalClicks) * 100));
+const typingSpeed = () => Math.round((props.correctClicks / props.seconds) * 60);
+const typingAccuracy = () => Math.round((props.correctClicks / props.totalClicks) * 100);
 
-const saveResult = () => {
-  store.saveRecord(typingSpeed.value, typingAccuracy.value);
+const tryAgain = () => {
+  store.saveRecord(typingSpeed(), typingAccuracy());
   emit('restartTry');
 };
 
 const goToStatistic = () => {
-  store.saveRecord(typingSpeed.value, typingAccuracy.value);
+  store.saveRecord(typingSpeed(), typingAccuracy());
   router.push({ name: 'statistic-screen' });
 };
 </script>
@@ -33,13 +32,9 @@ const goToStatistic = () => {
 <template>
   <to-modal>
     <template #header>Ваши результаты</template>
-    <p>Скорость печати: <strong>{{ typingSpeed }}</strong> знаков в минуту</p>
-    <p>Точность нажатий: <strong>{{ typingAccuracy }}</strong> %</p>
-    <to-button @click="saveResult">Попробовать ещё раз</to-button>
+    <p>Скорость печати: <strong>{{ typingSpeed() }}</strong> зн./мин.</p>
+    <p>Точность нажатий: <strong>{{ typingAccuracy() }}</strong> %</p>
+    <to-button @click="tryAgain">Попробовать ещё раз</to-button>
     <to-button @click="goToStatistic">Перейти к экрану статистики</to-button>
   </to-modal>
 </template>
-
-<style scoped>
-
-</style>

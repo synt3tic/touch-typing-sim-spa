@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { useStatisticStore } from '../stores/StatisticStore';
+import { Indicator } from '../types/StatisticTypes';
 
 const store = useStatisticStore();
 
-const bestScore = (value: string) => {
+const bestScore = (value: Indicator) => {
   let result: number = 0;
   store.statisticInfo.forEach(el => {
-    if (result < el[value]) result = el[value];
+    if (result < (el)[value]) result = el[value];
   });
   return result;
 };
@@ -15,7 +16,7 @@ const speedResultMessage = () => {
   let result: string;
   const bestSpeed = bestScore('speed');
 
-  if (store.statisticInfo.length < 2) {
+  if (store.statisticInfo.length < 1) {
     result = 'Завершите несколько попыток, чтобы увидеть свой прогресс в скорости набора текста';
   } else {
     result = `Ваш лучший результат: ${bestSpeed} зн./мин.`;
@@ -27,7 +28,7 @@ const accuracyResultMessage = () => {
   let result: string;
   const bestAccuracy = bestScore('accuracy');
 
-  if (store.statisticInfo.length < 2) {
+  if (store.statisticInfo.length < 1) {
     result = 'Завершите несколько попыток, чтобы увидеть свой прогресс в точности набора текста';
   } else {
     result = `Ваш лучший результат: ${bestAccuracy} %.`;

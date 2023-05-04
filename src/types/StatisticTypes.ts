@@ -3,3 +3,5 @@ export interface TryRecord {
   speed: number;
   accuracy: number;
 }
+
+export type Indicator = 'accuracy' | 'speed';

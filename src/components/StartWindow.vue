@@ -10,9 +10,9 @@ const startTyping = async () => {
   emit('startTry', selectedTextLength.value);
 };
 
-const selectedTextLength = ref('&number=7');
+const selectedTextLength = ref('');
 
-const selectTextLength = (e: Event) => {
+const choiceOfTextLength = (e: Event) => {
   selectedTextLength.value = (e.target as HTMLInputElement).value;
 };
 
@@ -20,7 +20,7 @@ const radioButtons = [
   {
     id: 1,
     name: 'Малый',
-    value: '&number=1',
+    value: '&number=2',
   },
   {
     id: 2,
@@ -30,7 +30,7 @@ const radioButtons = [
   {
     id: 3,
     name: 'Большой',
-    value: '&number=7',
+    value: '&number=6',
   },
 ];
 
@@ -46,13 +46,12 @@ const radioButtons = [
         v-for="item in radioButtons"
         :key="item.id"
         :value="item.value"
-        :checked="item.id === 2"
-        @change="selectTextLength"
+        @change="choiceOfTextLength"
       >
         {{ item.name }}
       </to-radio-button>
     </div>
-    <to-button @click="startTyping">Начать печатать</to-button>
+    <to-button :disabled="!selectedTextLength" @click="startTyping">Начать печатать</to-button>
   </to-modal>
 </template>
 

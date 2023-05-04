@@ -22,13 +22,17 @@ const correctClickCounter = ref(0);
 let interval: number | undefined;
 
 const startTry = async (textLenth: string) => {
-  const respone: ApiResponse = await getText(textLenth);
-  isLoading.value = false;
-  lettersArray.value = respone.text.split('');
-  isTryActive.value = true;
-  interval = setInterval(() => {
-    secondsCounter.value += 1;
-  }, 1000)
+  try {
+    const respone: ApiResponse = await getText(textLenth);
+    isLoading.value = false;
+    lettersArray.value = respone.text.split('');
+    isTryActive.value = true;
+    interval = setInterval(() => {
+      secondsCounter.value += 1;
+    }, 1000)
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const stopTry = () => {

@@ -17,12 +17,11 @@ const calculationValue = (value: number, multiplier: number) => {
 };
 
 const indicatorsCalculation = computed(() => {
-  const isCorrect = props.totalClicks > 0;
   let result;
   if(props.indicatorName === 'Точность') {
-    isCorrect ? result = calculationValue(props.totalClicks, 100) : result = 0;
+    props.totalClicks > 0 ? result = calculationValue(props.totalClicks, 100) : result = 0;
   } else {
-    isCorrect ? result = calculationValue(props.seconds, 60) : result = 0;
+    props.totalClicks > 0 ? result = calculationValue(props.seconds, 60) : result = 0;
   };
   return result;
 })

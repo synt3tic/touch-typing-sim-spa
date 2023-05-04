@@ -1,9 +1,15 @@
 <script setup lang="ts">
+interface Props {
+  disabled: boolean;
+}
 
+const props = withDefaults(defineProps<Props>(), {
+  disabled: false,
+})
 </script>
 
 <template>
-  <button class="to-button">
+  <button :disabled="props.disabled" class="to-button">
     <slot />
   </button>
 </template>

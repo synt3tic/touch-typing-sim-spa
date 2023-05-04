@@ -26,14 +26,14 @@ const classList = (route: string) => {
 
 <template>
   <nav class="navigation">
-    <div
+    <router-link
       v-for="item in navigationItems"
       :key="item.id"
+      :to="{ name: item.routeName }"
       :class="classList(item.routeName)"
-      @click="router.push({ name: item.routeName })"
     >
-      <p>{{ item.name }}</p>
-    </div>
+      {{ item.name }}
+    </router-link>
   </nav>
 </template>
 
