@@ -6,7 +6,7 @@ export default {
   ],
   theme: {
     fontFamily: {
-      sans: ['Raleway', 'sans-serif'],
+      sans: ['Ubuntu', 'sans-serif'],
     },
     extend: {
       height: {
@@ -19,4 +19,3 @@ export default {
   },
   plugins: [],
 }
-

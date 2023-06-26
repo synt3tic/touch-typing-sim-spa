@@ -62,6 +62,6 @@ onMounted(() => {
 
 <style scoped>
 .text-field {
-  @apply w-224 p-3 whitespace-pre-wrap text-lg font-medium bg-white rounded-2xl;
+  @apply w-224 p-3 whitespace-pre-wrap text-2xl bg-white rounded-2xl;
 }
 </style>

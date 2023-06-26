@@ -43,7 +43,7 @@ const classList = (route: string) => {
 }
 
 .navigation__item {
-  @apply flex items-center h-full px-2 text-white transition-all hover:cursor-pointer hover:bg-blue-300;
+  @apply flex items-center h-full px-2 text-white text-lg transition-all hover:cursor-pointer hover:bg-blue-300;
 }
 
 .navigation__item_active {
